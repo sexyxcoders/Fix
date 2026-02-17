@@ -1,15 +1,17 @@
-from pyrogram import filters
-from pyrogram.types import Message
-from AloneMusic import app
+import io
+from io import BytesIO
 
 from PIL import Image, ImageDraw, ImageFont
-from io import BytesIO
-import io
+from pyrogram import filters
+from pyrogram.types import Message
+
+from AloneMusic import app
 
 print("🔥 QT PLUGIN LOADED (FIXED VERSION) 🔥")
 
 
 # ================= IMAGE CREATOR ================= #
+
 
 def create_quote_image(text, author, profile_photo=None):
     width, height = 800, 400
@@ -49,7 +51,7 @@ def create_quote_image(text, author, profile_photo=None):
             draw.ellipse(
                 (x - 3, y - 3, x + size + 3, y + size + 3),
                 outline=(120, 120, 120),
-                width=2
+                width=2,
             )
         except Exception as e:
             print("Profile error:", e)
@@ -86,7 +88,7 @@ def create_quote_image(text, author, profile_photo=None):
         (width - aw - 40, height - ah - 30),
         author_text,
         fill=(200, 200, 200),
-        font=small_font
+        font=small_font,
     )
 
     output = io.BytesIO()
@@ -99,6 +101,7 @@ def create_quote_image(text, author, profile_photo=None):
 
 # ================= GROUP HANDLER ================= #
 
+
 @app.on_message(filters.command("qt") & filters.group)
 async def qt_handler(_, message: Message):
     try:
@@ -106,10 +109,7 @@ async def qt_handler(_, message: Message):
 
         if len(cmd) < 2:
             return await message.reply(
-                "❌ Usage:\n"
-                "/qt Text\n"
-                "/qt @username Text\n"
-                "/qt -r (reply mode)"
+                "❌ Usage:\n" "/qt Text\n" "/qt @username Text\n" "/qt -r (reply mode)"
             )
 
         text = ""
@@ -164,6 +164,7 @@ async def qt_handler(_, message: Message):
 
 
 # ================= PM BLOCK ================= #
+
 
 @app.on_message(filters.command("qt") & filters.private)
 async def qt_pm(_, message: Message):
