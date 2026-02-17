@@ -121,7 +121,7 @@ async def qt_handler(_, message: Message):
         if cmd[1] == "-r":
             reply = message.reply_to_message
             if not reply or not reply.from_user:
-                return await message.reply("❌ Kisi user ke message par reply karo")
+                return await message.reply("❌ Reply to a user's message")
 
             user = reply.from_user
             author = user.first_name or "User"
@@ -137,7 +137,7 @@ async def qt_handler(_, message: Message):
                 user_id = user.id
                 text = " ".join(cmd[2:]) or "💬"
             except:
-                return await message.reply(f"❌ @{username} nahi mila")
+                return await message.reply(f"❌ @{username} not found")
 
         # ===== NORMAL MODE ===== #
         else:
@@ -160,11 +160,11 @@ async def qt_handler(_, message: Message):
 
     except Exception as e:
         print("QT ERROR:", e)
-        await message.reply("❌ Error aa gaya, dobara try karo")
+        await message.reply("❌ An error occurred, please try again")
 
 
 # ================= PM BLOCK ================= #
 
 @app.on_message(filters.command("qt") & filters.private)
 async def qt_pm(_, message: Message):
-    await message.reply("❌ Ye command sirf groups me kaam karti hai")
+    await message.reply("❌ This command works only in groups")
